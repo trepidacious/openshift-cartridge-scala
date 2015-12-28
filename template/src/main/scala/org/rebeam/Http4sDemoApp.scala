@@ -16,6 +16,8 @@ import org.http4s.server.middleware.CORS
 
 import scala.util.Try
 
+import java.net.InetSocketAddress
+
 object Http4sDemoApp extends App {
 
   val service = HttpService {
@@ -31,12 +33,14 @@ object Http4sDemoApp extends App {
   def envStringOrElse(s: String, d: String) = sys.env.getOrElse(s, d)
   def envIntOrElse(s: String, d: Int) = sys.env.get(s).flatMap(v => Try(v.toInt).toOption).getOrElse(d)
 
+  //Use OpenShift environment if present, or sensible defaults otherwise (e.g. if running on dev PC rather than OpenShift)
   val interface = envStringOrElse("OPENSHIFT_SCALA_IP", "localhost")
   val port = envIntOrElse("OPENSHIFT_SCALA_PORT", 8080)
 
-  println("Interface " + interface + ", port " + port)
+  val socketAddress = new InetSocketAddress(interface, port)
+  println("Will bind to " + socketAddress)
 
-  BlazeBuilder.bindHttp(8080)
+  BlazeBuilder.bindSocketAddress(socketAddress)
     .mountService(service, "/")
     .run
     .awaitShutdown()
