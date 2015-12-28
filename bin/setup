@@ -12,7 +12,8 @@ tar xzf scala-$VERSION.tgz
 rm -f scala-$VERSION.tgz
 ln -s ${OPENSHIFT_DATA_DIR}/scala-$VERSION scala
 
+# Note the -L to follow 302 redirect
 echo "Download sbt $SBT_VERSION"
-curl -s -o  ${OPENSHIFT_DATA_DIR}/sbt.tgz https://dl.bintray.com/sbt/native-packages/sbt/$SBT_VERSION/sbt-$SBT_VERSION.tgz
+curl -s -L -o ${OPENSHIFT_DATA_DIR}/sbt.tgz https://dl.bintray.com/sbt/native-packages/sbt/$SBT_VERSION/sbt-$SBT_VERSION.tgz
 tar xzf sbt.tgz
 rm -f xzf sbt.tgz
