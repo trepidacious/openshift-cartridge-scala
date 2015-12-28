@@ -1,12 +1,12 @@
 Name: scala
 Cartridge-Short-Name: SCALA
-Display-Name: scala Cartridge
+Display-Name: Scala Cartridge
 Description: "A scala cartridge"
 Version: '0.6.3'
 License: "MIT"
 Vendor: google
 Cartridge-Version: 0.0.1
-Cartridge-Vendor: filirom1
+Cartridge-Vendor: trepidacious
 Categories:
   - service
   - web_framework
