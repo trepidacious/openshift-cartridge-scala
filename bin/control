@@ -3,8 +3,8 @@
 #FIXME share this with setup script
 JDK_PATH=jdk1.8.0_66
 
-JAVA_HOME=${OPENSHIFT_DATA_DIR}${JDK_PATH}
-PATH=${OPENSHIFT_DATA_DIR}/scala/bin/:${OPENSHIFT_DATA_DIR}/sbt/bin/:/bin/:/usr/bin:$JAVA_HOME/bin:$PATH
+export JAVA_HOME=${OPENSHIFT_DATA_DIR}${JDK_PATH}
+export PATH=$JAVA_HOME/bin:${OPENSHIFT_DATA_DIR}/scala/bin/:${OPENSHIFT_DATA_DIR}/sbt/bin/:$PATH
 
 function start {
     cd $OPENSHIFT_REPO_DIR
