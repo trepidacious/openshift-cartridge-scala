@@ -2,18 +2,29 @@
 set -e
 
 VERSION=2.11.7
+
 SBT_VERSION=0.13.9
+
+JDK_VERSION=jdk-8u66
+JDK_FULL_VERSION=8u66-b17
+JDK_PATH=jdk1.8.0_66
 
 cd ${OPENSHIFT_DATA_DIR}
 
 echo "Download scala $VERSION"
-curl -s -o ${OPENSHIFT_DATA_DIR}/scala-$VERSION.tgz http://downloads.typesafe.com/scala/$VERSION/scala-$VERSION.tgz 
-tar xzf scala-$VERSION.tgz
-rm -f scala-$VERSION.tgz
-ln -s ${OPENSHIFT_DATA_DIR}/scala-$VERSION scala
+curl -s -o ${OPENSHIFT_DATA_DIR}/scala-${VERSION}.tgz http://downloads.typesafe.com/scala/${VERSION}/scala-${VERSION}.tgz 
+tar xzf scala-${VERSION}.tgz
+rm -f scala-${VERSION}.tgz
+ln -s ${OPENSHIFT_DATA_DIR}/scala-${VERSION} scala
 
 # Note the -L to follow 302 redirect
 echo "Download sbt $SBT_VERSION"
-curl -s -L -o ${OPENSHIFT_DATA_DIR}/sbt.tgz https://dl.bintray.com/sbt/native-packages/sbt/$SBT_VERSION/sbt-$SBT_VERSION.tgz
+curl -s -L -o ${OPENSHIFT_DATA_DIR}/sbt.tgz https://dl.bintray.com/sbt/native-packages/sbt/${SBT_VERSION}/sbt-${SBT_VERSION}.tgz
 tar xzf sbt.tgz
 rm -f xzf sbt.tgz
+
+echo "Download JDK ${JDK_VERSION}, ${JDK_FULL_VERSION}"
+wget -c -O "${OPENSHIFT_DATA_DIR}/${JDK_VERSION}-linux-x64.tar.gz" --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/${JDK_FULL_VERSION}/${JDK_VERSION}-linux-x64.tar.gz"
+tar xzf ${JDK_VERSION}-linux-x64.tar.gz
+rm -f ${JDK_VERSION}-linux-x64.tar.gz
+ln -s ${OPENSHIFT_DATA_DIR}/${JDK_PATH} jdk
